@@ -1,0 +1,53 @@
+schema -define structure 
+   schema-model
+   using the model we do CRUD operation
+
+MVC :
+model
+view 
+controller:controller manipulates the model and model updates the view 
+
+
+
+app.route("./api/user",async(req,res)=>{
+   const allDbUsers=await User.find({});
+   return res.json(allDbUsers)
+})
+#yeh hoga jab the route is same and common
+app.route("./api/users/:id).get(async(res,req)=>{}).patch().delete(())
+
+
+
+// GET route → saare users ko HTML format mein dikhana
+router.get('/users', async (req, res) => {
+    //pehle hum saare users ko mockdata se fetch karke show karte the using map ,now we fetch from mongodb using mongoose
+    //user,find({}) is a mingodb function which fetch all the data from the user collection
+    const allDBUsers = await User.find({});
+    const html =
+        `<ul>${allDBUsers.map((user) => `<li>${user.first_name} - ${user.email} - ${user.jobTitle} - ${user.gender}</li>`).join("")}</ul>`;
+    res.send(html);
+});  from route folder
+
+
+Agar user request karta hai:
+
+GET /user/123
+
+
+Toh Node.js internally karega:
+
+req.params = {
+  id: "123"
+}
+
+
+Isliye:
+
+req.params.id  // "123"
+Pehle samjho params kya hota hai
+
+Jab route me :something likhte ho, usko kehte hain route parameter.
+User.findById(req.params.id);
+Matlab:
+
+“Is ID wale user ko database se nikaal do.”
